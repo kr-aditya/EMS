@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
-import { setLocalStorage } from '../../utils/LocalStorage'
+import React from 'react'
 
 const Header = (props) => {
 
 
-  const logOutUser = ()=>{
-    localStorage.setItem('loggedInUser','')
+  const logOutUser = () => {
+    localStorage.removeItem('loggedInUser')
     props.changeUser('')
-    // window.location.reload()
   }
 
-  
+  const name = props?.data?.firstName || (props?.role === 'admin' ? 'Admin' : 'User')
+  const roleLabel = props?.role === 'admin' ? 'Administrator' : 'Employee'
+
   return (
     <div className='flex items-end justify-between'>
-        <h1 className='text-2xl font-medium'>Hello <br /> <span className='text-3xl font-semibold'>Username 👋</span></h1>
+      <div>
+        <h1 className='text-2xl font-medium'>Hello <br /> <span className='text-3xl font-semibold'>{name} 👋</span></h1>
+        <p className='text-sm text-gray-400 mt-1'>{roleLabel} dashboard</p>
+      </div>
         <button onClick={logOutUser} className='bg-red-600 text-base font-medium text-white px-5 py-2 rounded-sm'>Log Out</button>
     </div>
   )

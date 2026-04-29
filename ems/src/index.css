@@ -1,16 +1,43 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-*{
-  color: #fff;
+:root {
+  color-scheme: dark;
+  --bg-900: #0a0f14;
+  --bg-800: #0f1721;
+  --bg-700: #121d29;
+  --accent: #14b8a6;
+  --accent-2: #f97316;
+  --text-primary: #f1f5f9;
+  --text-muted: #9ca3af;
 }
-body{
-  background-color: #111;
+
+* {
+  box-sizing: border-box;
 }
-#tasklist::-webkit-scrollbar{
-    background-color: transparent;
-    height: 5px;
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  background: radial-gradient(1200px 600px at 10% 10%, #142034 0%, var(--bg-900) 50%),
+    radial-gradient(900px 500px at 90% 20%, #1b2a40 0%, var(--bg-900) 60%);
 }
-#tasklist::-webkit-scrollbar-thumb{
-  background-color: rgb(143, 143, 143);
+
+input, textarea, select {
+  color: var(--text-primary);
+}
+
+option {
+  color: #0f1721;
+}
+
+#tasklist::-webkit-scrollbar {
+  background-color: transparent;
+  height: 6px;
+}
+
+#tasklist::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.6);
   border-radius: 50px;
 }

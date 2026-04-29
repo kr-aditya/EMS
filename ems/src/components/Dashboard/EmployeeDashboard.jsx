@@ -1,16 +1,78 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../other/Header'
 import TaskListNumbers from '../other/TaskListNumbers'
 import TaskList from '../TaskList/TaskList'
+import { AuthContext } from '../../context/AuthProvider'
 
 const EmployeeDashboard = (props) => {
 
+  const [userData, setUserData] = useContext(AuthContext)
+
+  const updateTaskStatus = (employeeId, taskIndex, action) => {
+    setUserData((prev) => {
+      if (!prev) return prev
+
+      return prev.map((employee) => {
+        if (employee.id !== employeeId) {
+          return employee
+        }
+
+        const updatedTasks = employee.tasks.map((task, index) => {
+          if (index !== taskIndex) return task
+
+          if (action === 'accept') {
+            return { ...task, newTask: false, active: true }
+          }
+          if (action === 'complete') {
+            return { ...task, active: false, completed: true, failed: false }
+          }
+          if (action === 'fail') {
+            return { ...task, active: false, completed: false, failed: true }
+          }
+
+          return task
+        })
+
+        const updatedCounts = { ...employee.taskCounts }
+
+        if (action === 'accept') {
+          updatedCounts.newTask = Math.max(0, updatedCounts.newTask - 1)
+          updatedCounts.active = updatedCounts.active + 1
+        }
+
+        if (action === 'complete') {
+          updatedCounts.active = Math.max(0, updatedCounts.active - 1)
+          updatedCounts.completed = updatedCounts.completed + 1
+        }
+
+        if (action === 'fail') {
+          updatedCounts.active = Math.max(0, updatedCounts.active - 1)
+          updatedCounts.failed = updatedCounts.failed + 1
+        }
+
+        return {
+          ...employee,
+          tasks: updatedTasks,
+          taskCounts: updatedCounts
+        }
+      })
+    })
+  }
+
+  if (!props.data) {
+    return (
+      <div className='p-10 bg-[#0f1721] min-h-screen'>
+        <Header changeUser={props.changeUser} role='employee' />
+        <div className='mt-10 text-gray-300'>Loading employee data...</div>
+      </div>
+    )
+  }
+
   return (
-    <div className='p-10 bg-[#1C1C1C] h-screen'>
-        
-        <Header changeUser={props.changeUser} data={props.data}/>
+    <div className='p-10 bg-[#0f1721] min-h-screen'>
+        <Header changeUser={props.changeUser} data={props.data} role='employee' />
         <TaskListNumbers data={props.data} />
-        <TaskList data={props.data} />
+        <TaskList data={props.data} onTaskAction={updateTaskStatus} />
     </div>
   )
 }
