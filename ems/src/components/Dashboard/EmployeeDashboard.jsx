@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthProvider'
 const EmployeeDashboard = (props) => {
 
   const [userData, setUserData] = useContext(AuthContext)
+  const currentEmployee = userData?.find((employee) => employee.id === props.data?.id) || props.data
 
   const updateTaskStatus = (employeeId, taskIndex, action) => {
     setUserData((prev) => {
@@ -30,6 +31,10 @@ const EmployeeDashboard = (props) => {
             return { ...task, active: false, completed: false, failed: true }
           }
 
+          if (action === 'reopen') {
+            return { ...task, active: true, completed: false, failed: false, newTask: false }
+          }
+
           return task
         })
 
@@ -50,6 +55,16 @@ const EmployeeDashboard = (props) => {
           updatedCounts.failed = updatedCounts.failed + 1
         }
 
+        if (action === 'reopen') {
+          updatedCounts.active = updatedCounts.active + 1
+          if (employee.tasks[taskIndex]?.completed) {
+            updatedCounts.completed = Math.max(0, updatedCounts.completed - 1)
+          }
+          if (employee.tasks[taskIndex]?.failed) {
+            updatedCounts.failed = Math.max(0, updatedCounts.failed - 1)
+          }
+        }
+
         return {
           ...employee,
           tasks: updatedTasks,
@@ -59,20 +74,24 @@ const EmployeeDashboard = (props) => {
     })
   }
 
-  if (!props.data) {
+  if (!currentEmployee) {
     return (
-      <div className='p-10 bg-[#0f1721] min-h-screen'>
-        <Header changeUser={props.changeUser} role='employee' />
-        <div className='mt-10 text-gray-300'>Loading employee data...</div>
+      <div className='min-h-screen w-full'>
+        <div className='ems-shell'>
+          <Header changeUser={props.changeUser} role='employee' />
+          <div className='mt-10 text-gray-300'>Loading employee data...</div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className='p-10 bg-[#0f1721] min-h-screen'>
-        <Header changeUser={props.changeUser} data={props.data} role='employee' />
-        <TaskListNumbers data={props.data} />
-        <TaskList data={props.data} onTaskAction={updateTaskStatus} />
+    <div className='min-h-screen w-full'>
+      <div className='ems-shell'>
+        <Header changeUser={props.changeUser} data={currentEmployee} role='employee' />
+        <TaskListNumbers data={currentEmployee} />
+        <TaskList data={currentEmployee} onTaskAction={updateTaskStatus} />
+      </div>
     </div>
   )
 }

@@ -5,8 +5,10 @@ import CompleteTask from './CompleteTask'
 import FailedTask from './FailedTask'
 
 const TaskList = ({ data, onTaskAction }) => {
+    if (!data?.tasks) return null
+
     return (
-                <div id='tasklist' className='h-[50%] overflow-x-auto flex items-center justify-start gap-5 flex-nowrap w-full py-1 mt-16'>
+                <div id='tasklist' className='task-list overflow-x-auto flex items-stretch justify-start gap-5 flex-nowrap w-full py-1 mt-10'>
                         {!data.tasks.length && (
                             <div className='text-gray-400'>No tasks assigned yet.</div>
                         )}
@@ -31,10 +33,22 @@ const TaskList = ({ data, onTaskAction }) => {
                                         )
                 }
                 if (elem.completed) {
-                    return <CompleteTask key={idx} data={elem} />
+                                        return (
+                                            <CompleteTask
+                                                key={idx}
+                                                data={elem}
+                                                onReopen={() => onTaskAction?.(data.id, idx, 'reopen')}
+                                            />
+                                        )
                 }
                 if (elem.failed) {
-                                        return <FailedTask key={idx} data={elem} />
+                                                                                return (
+                                                                                    <FailedTask
+                                                                                        key={idx}
+                                                                                        data={elem}
+                                                                                        onReopen={() => onTaskAction?.(data.id, idx, 'reopen')}
+                                                                                    />
+                                                                                )
                 }
 
             })}

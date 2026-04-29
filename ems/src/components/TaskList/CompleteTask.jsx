@@ -1,18 +1,19 @@
 import React from 'react'
 
-const CompleteTask = ({data}) => {
+const CompleteTask = ({data, onReopen}) => {
   return (
-    <div className='flex-shrink-0 h-full w-[300px] p-5 bg-green-400 rounded-xl'>
+    <div className='task-card flex-shrink-0 w-[300px] p-5 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-[#0f2c27] to-[#0b1715] shadow-lg shadow-emerald-500/10 fade-rise'>
             <div className='flex justify-between items-center'>
-                <h3 className='bg-red-600 text-sm px-3 py-1 rounded'>{data.category}</h3>
-                <h4 className='text-sm'>{data.taskDate}</h4>
+                <h3 className='bg-emerald-400/20 text-emerald-100 text-xs uppercase tracking-widest px-3 py-1 rounded-full'>{data.category}</h3>
+                <h4 className='text-xs text-slate-300'>{data.taskDate}</h4>
             </div>
-            <h2 className='mt-5 text-2xl font-semibold'>{data.taskTitle}</h2>
-            <p className='text-sm mt-2'>
+            <h2 className='mt-4 text-xl font-semibold'>{data.taskTitle}</h2>
+            <p className='text-sm mt-1 task-card__desc'>
                 {data.taskDescription}
             </p>
-            <div className='mt-6'>
-                <button className='w-full bg-green-600 rounded font-medium py-1 px-2 text-xs'>Complete</button>
+            <div className='task-card__footer'>
+                <button className='bg-emerald-500/90 text-slate-900 rounded-full font-semibold py-2 px-4 text-xs'>Complete</button>
+                <button onClick={onReopen} className='bg-slate-800 text-slate-200 rounded-full font-semibold py-2 px-4 text-xs'>Reopen</button>
             </div>
         </div>
   )

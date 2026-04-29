@@ -57,11 +57,11 @@ const CreateTask = () => {
     }
 
     return (
-        <div className='p-6 bg-[#111b26] mt-5 rounded-xl border border-white/5'>
+        <div className='ems-panel p-6 mt-6'>
             <form onSubmit={(e) => {
                 submitHandler(e)
             }}
-                className='flex flex-wrap w-full items-start justify-between'
+                className='flex flex-wrap w-full items-start justify-between gap-6'
             >
                 <div className='w-1/2'>
                     <div>
@@ -71,7 +71,7 @@ const CreateTask = () => {
                             onChange={(e) => {
                                 setTaskTitle(e.target.value)
                             }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border border-gray-400 mb-4' type="text" placeholder='Make a UI design'
+                            className='text-sm py-2 px-3 w-4/5 rounded-lg outline-none bg-[#0b1220] border border-white/10 mb-4 focus:border-emerald-400/60' type="text" placeholder='Make a UI design'
                             required
                         />
                     </div>
@@ -82,7 +82,7 @@ const CreateTask = () => {
                             onChange={(e) => {
                                 setTaskDate(e.target.value)
                             }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border border-gray-400 mb-4' type="date" required />
+                            className='text-sm py-2 px-3 w-4/5 rounded-lg outline-none bg-[#0b1220] border border-white/10 mb-4 focus:border-emerald-400/60' type="date" required />
                     </div>
                     <div>
                         <h3 className='text-sm text-gray-300 mb-0.5'>Assign to</h3>
@@ -91,7 +91,7 @@ const CreateTask = () => {
                             onChange={(e) => {
                                 setAssignTo(e.target.value)
                             }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border border-gray-400 mb-4'
+                            className='text-sm py-2 px-3 w-4/5 rounded-lg outline-none bg-[#0b1220] text-white font-medium border border-white/10 mb-4 focus:border-emerald-400/60'
                             required
                         >
                             <option value=''>Select employee</option>
@@ -107,7 +107,7 @@ const CreateTask = () => {
                             onChange={(e) => {
                                 setCategory(e.target.value)
                             }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border border-gray-400 mb-4' type="text" placeholder='design, dev, etc' required />
+                            className='text-sm py-2 px-3 w-4/5 rounded-lg outline-none bg-[#0b1220] border border-white/10 mb-4 focus:border-emerald-400/60' type="text" placeholder='design, dev, etc' required />
                     </div>
                 </div>
 
@@ -116,8 +116,8 @@ const CreateTask = () => {
                     <textarea value={taskDescription}
                         onChange={(e) => {
                             setTaskDescription(e.target.value)
-                        }} className='w-full h-44 text-sm py-2 px-4 rounded outline-none bg-transparent border border-gray-400' name="" id="" required></textarea>
-                    <button disabled={!assignTo} className='bg-emerald-500 py-3 hover:bg-emerald-600 px-5 rounded text-sm mt-4 w-full disabled:opacity-50'>Create Task</button>
+                        }} className='w-full h-44 text-sm py-2 px-4 rounded-lg outline-none bg-[#0b1220] border border-white/10 focus:border-emerald-400/60' name="" id="" required></textarea>
+                    <button disabled={!assignTo} className='bg-emerald-500 py-3 hover:bg-emerald-400 text-slate-900 px-5 rounded-full text-sm mt-4 w-full font-semibold disabled:opacity-50'>Create Task</button>
                 </div>
 
             </form>

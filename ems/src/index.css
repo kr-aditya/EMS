@@ -24,12 +24,35 @@ body {
     radial-gradient(900px 500px at 90% 20%, #1b2a40 0%, var(--bg-900) 60%);
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(800px 400px at 80% 80%, rgba(20, 184, 166, 0.08), transparent 60%),
+    radial-gradient(700px 400px at 15% 80%, rgba(249, 115, 22, 0.08), transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
+}
+
 input, textarea, select {
   color: var(--text-primary);
 }
 
 option {
-  color: #0f1721;
+  color: #e2e8f0;
+  background-color: #0b1220;
 }
 
 #tasklist::-webkit-scrollbar {

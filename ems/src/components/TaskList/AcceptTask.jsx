@@ -2,18 +2,18 @@ import React from 'react'
 
 const AcceptTask = ({data, onComplete, onFail}) => {
   return (
-    <div className='flex-shrink-0 h-full w-[300px] p-5 bg-yellow-400 rounded-xl'>
+    <div className='task-card flex-shrink-0 w-[300px] p-5 rounded-2xl border border-amber-400/30 bg-gradient-to-br from-[#2b2415] to-[#1a1408] shadow-lg shadow-amber-500/10 fade-rise'>
             <div className='flex justify-between items-center'>
-                <h3 className='bg-red-600 text-sm px-3 py-1 rounded'>{data.category}</h3>
-                <h4 className='text-sm'>{data.taskDate}</h4>
+                <h3 className='bg-amber-400/20 text-amber-100 text-xs uppercase tracking-widest px-3 py-1 rounded-full'>{data.category}</h3>
+                <h4 className='text-xs text-slate-300'>{data.taskDate}</h4>
             </div>
-            <h2 className='mt-5 text-2xl font-semibold'>{data.taskTitle}</h2>
-            <p className='text-sm mt-2'>
+            <h2 className='mt-4 text-xl font-semibold'>{data.taskTitle}</h2>
+            <p className='text-sm mt-1 task-card__desc'>
                 {data.taskDescription}
             </p>
-            <div className='flex justify-between mt-6 '>
-                <button onClick={onComplete} className='bg-green-500 rounded font-medium py-1 px-2 text-xs'>Mark as Completed</button>
-                <button onClick={onFail} className='bg-red-500 rounded font-medium py-1 px-2 text-xs'>Mark as Failed</button>
+            <div className='task-card__footer'>
+                <button onClick={onComplete} className='bg-emerald-500/90 hover:bg-emerald-400 text-slate-900 rounded-full font-semibold py-2 px-4 text-xs'>Complete</button>
+                <button onClick={onFail} className='bg-rose-500/90 hover:bg-rose-400 text-slate-900 rounded-full font-semibold py-2 px-4 text-xs'>Fail</button>
             </div>
         </div>
   )
